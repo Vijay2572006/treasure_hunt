@@ -116,15 +116,40 @@ export const Stage6Social = ({ onCustomSubmit }) => {
               <span>7-LETTER EVENT ANAGRAM WORKBENCH</span>
             </span>
 
-            <button
-              type="button"
-              onClick={handleResetLetters}
-              className="text-[10px] bg-[#3e2414] hover:bg-[#5c381e] text-[#d9c4a5] border border-[#8b5a2b] px-3 py-1 rounded-xl flex items-center space-x-1 font-bold"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>CLEAR WORKBENCH</span>
-            </button>
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setKeyInput('IGNEXIA');
+                  setUserLetters([
+                    { letter: 'I', idx: 1 },
+                    { letter: 'G', idx: 0 },
+                    { letter: 'N', idx: 2 },
+                    { letter: 'E', idx: 3 },
+                    { letter: 'X', idx: 4 },
+                    { letter: 'I', idx: 5 },
+                    { letter: 'A', idx: 6 }
+                  ]);
+                }}
+                className="text-[10px] bg-yellow-400 hover:bg-yellow-300 text-black px-3 py-1 rounded-xl flex items-center space-x-1 font-black shadow-md uppercase tracking-wider"
+              >
+                <span>AUTO-FILL (IGNEXIA) 💡</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleResetLetters}
+                className="text-[10px] bg-[#3e2414] hover:bg-[#5c381e] text-[#d9c4a5] border border-[#8b5a2b] px-3 py-1 rounded-xl flex items-center space-x-1 font-bold"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>CLEAR WORKBENCH</span>
+              </button>
+            </div>
           </div>
+
+          <p className="text-[11px] text-[#d9c4a5] bg-[#140c08] p-2.5 rounded-xl border border-[#8b5a2b] italic">
+            💡 <strong>EVENT ANAGRAM CLUE</strong>: Unscramble the 7 letters <strong className="text-yellow-300">G - I - N - E - X - I - A</strong> to spell the grand title of this digital treasure hunt event: <strong className="text-yellow-300 font-mono text-xs font-bold">IGNEXIA</strong>!
+          </p>
 
           {/* Letter Source Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2">
