@@ -216,6 +216,19 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     a.click();
   };
 
+  const handleResetEntireEvent = async () => {
+    if (!window.confirm("⚠️ WARNING: Are you sure you want to CLEAR ALL registered teams, scores, and leaderboard logs? This action cannot be undone!")) return;
+
+    try {
+      await axios.post(`${API_BASE}/admin/event/reset-all/`);
+      setSuccessMsg("All leaderboard details, scores, and registered crews have been cleared successfully!");
+      setTimeout(() => setSuccessMsg(''), 4000);
+      fetchAllAdminData(adminToken);
+    } catch (err) {
+      alert("Failed to clear leaderboard details.");
+    }
+  };
+
   const handleAdminLogout = () => {
     setIsAuthenticated(false);
     setAdminToken('');
@@ -260,6 +273,16 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
           <div className="flex items-center space-x-2">
             {isAuthenticated && (
               <>
+                <button
+                  type="button"
+                  onClick={handleResetEntireEvent}
+                  className="px-3 py-1.5 bg-red-950 hover:bg-red-900 text-red-300 border border-red-500/60 rounded-xl text-xs font-bold transition-all flex items-center space-x-1"
+                  title="Purge all teams, scores, and leaderboard logs"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>FLUSH LEADERBOARD 🧹</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={handleToggleEventPause}
