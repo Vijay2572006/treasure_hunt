@@ -70,11 +70,11 @@ PUZZLE_STAGES = {
         "key": "TREASUREHUNT",
         "points": 500,
         "hints": {
-            1: "Collect all 12 scrambled letters from the 3 audit log node streams: T, R, E, A, S, U, R, E, H, U, N, T.",
-            2: "This 12-letter phrase is the core title of this event (TREASURE HUNT).",
-            3: "Unscramble the 12 letters to spell the event passkey: TREASUREHUNT."
+            1: "Collect all 12 scrambled letters from the 3 audit log node streams: U, E, T, R, N, A, H, E, T, S, U, R.",
+            2: "Unscramble the 12 letters to form the 2-word phrase describing this event.",
+            3: "Rearrange the letters U-E-T-R-N-A-H-E-T-S-U-R to spell the 12-letter event passkey: TREASUREHUNT."
         },
-        "description": "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [T-R-E-A], [S-U-R-E], and [H-U-N-T]. Unscramble all 12 letters to recover the grand event title.",
+        "description": "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [U-E-T-R], [N-A-H-E], and [T-S-U-R]. Unscramble all 12 letters to recover the grand event passphrase.",
     },
     7: {
         "title": "Stage 7: The Master Decryption Console",

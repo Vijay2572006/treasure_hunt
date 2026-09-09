@@ -9,8 +9,9 @@ export const Stage6Social = ({ onCustomSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
 
-  // 12-Letter Anagram Token: "TREASUREHUNT"
-  const initialLetters = ['T', 'R', 'E', 'A', 'S', 'U', 'R', 'E', 'H', 'U', 'N', 'T'];
+  // Heavily Scrambled 12-Letter Anagram Token for "TREASUREHUNT":
+  // U, E, T, R, N, A, H, E, T, S, U, R
+  const initialLetters = ['U', 'E', 'T', 'R', 'N', 'A', 'H', 'E', 'T', 'S', 'U', 'R'];
   const [userLetters, setUserLetters] = useState([]);
 
   const handleAddLetter = (letter, idx) => {
@@ -74,7 +75,7 @@ export const Stage6Social = ({ onCustomSubmit }) => {
         </div>
 
         <p className="text-sm text-[#3e2414] leading-relaxed font-sans mt-3 font-semibold">
-          {stageData?.description || "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [T-R-E-A], [S-U-R-E], and [H-U-N-T]. Unscramble all 12 letters to recover the grand event passphrase."}
+          {stageData?.description || "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [U-E-T-R], [N-A-H-E], and [T-S-U-R]. Unscramble all 12 letters to recover the grand event passphrase."}
         </p>
       </div>
 
@@ -92,17 +93,17 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           </div>
 
           <div className="space-y-2 text-[11px] font-mono">
-            <div className="text-[#d9c4a5]">[04:42:10 AM] NODE_ALPHA_01: "STREAM_A = T - R - E - A"</div>
-            <div className="text-[#d9c4a5]">[04:43:05 AM] NODE_BETA_02: "STREAM_B = S - U - R - E"</div>
-            <div className="text-[#d9c4a5]">[04:44:00 AM] NODE_GAMMA_03: "STREAM_C = H - U - N - T"</div>
+            <div className="text-[#d9c4a5]">[04:42:10 AM] NODE_ALPHA_01: "STREAM_A = U - E - T - R"</div>
+            <div className="text-[#d9c4a5]">[04:43:05 AM] NODE_BETA_02: "STREAM_B = N - A - H - E"</div>
+            <div className="text-[#d9c4a5]">[04:44:00 AM] NODE_GAMMA_03: "STREAM_C = T - S - U - R"</div>
             
             <div className="text-yellow-300 bg-[#3e2414] p-3 rounded-xl border border-[#d4af37]/50 font-bold">
               <div className="flex items-center justify-between">
-                <span>COMBINED 12-LETTER SCRAMBLED MATRIX TOKEN:</span>
+                <span>COMBINED 12-LETTER HIGHLY SCRAMBLED MATRIX TOKEN:</span>
                 <Clock className="w-3.5 h-3.5 text-amber-400" />
               </div>
               <div className="text-yellow-300 text-xs tracking-widest mt-1 font-mono">
-                BANK: <strong className="text-yellow-400">" T - R - E - A - S - U - R - E - H - U - N - T "</strong>
+                BANK: <strong className="text-yellow-400">" U - E - T - R - N - A - H - E - T - S - U - R "</strong>
               </div>
             </div>
           </div>
@@ -113,21 +114,10 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-yellow-300 uppercase flex items-center space-x-1.5">
               <Shuffle className="w-4 h-4 text-yellow-400" />
-              <span>12-LETTER EVENT ANAGRAM WORKBENCH</span>
+              <span>12-LETTER SCRAMBLED ANAGRAM WORKBENCH</span>
             </span>
 
             <div className="flex items-center space-x-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setKeyInput('TREASURE HUNT');
-                  setUserLetters(initialLetters.map((char, idx) => ({ letter: char, idx })));
-                }}
-                className="text-[10px] bg-yellow-400 hover:bg-yellow-300 text-black px-3 py-1 rounded-xl flex items-center space-x-1 font-black shadow-md uppercase tracking-wider"
-              >
-                <span>AUTO-FILL (TREASURE HUNT) 💡</span>
-              </button>
-
               <button
                 type="button"
                 onClick={handleResetLetters}
@@ -138,10 +128,6 @@ export const Stage6Social = ({ onCustomSubmit }) => {
               </button>
             </div>
           </div>
-
-          <p className="text-[11px] text-[#d9c4a5] bg-[#140c08] p-2.5 rounded-xl border border-[#8b5a2b] italic">
-            💡 <strong>EVENT ANAGRAM CLUE</strong>: Unscramble the 12 letters <strong className="text-yellow-300">T - R - E - A - S - U - R - E - H - U - N - T</strong> to spell: <strong className="text-yellow-300 font-mono text-xs font-bold">TREASURE HUNT</strong>!
-          </p>
 
           {/* Letter Source Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -169,7 +155,7 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           <div className="bg-[#3e2414] p-3.5 rounded-xl border border-[#8b5a2b] min-h-[55px] flex items-center justify-between px-4">
             <div className="flex items-center space-x-1 flex-1 overflow-x-auto">
               {userLetters.length === 0 ? (
-                <span className="text-xs text-[#d9c4a5] italic">Tap letters above to construct 12-letter event key...</span>
+                <span className="text-xs text-[#d9c4a5] italic">Tap scrambled letters above to solve the 12-letter event key...</span>
               ) : (
                 userLetters.map((item, idx) => (
                   <button
@@ -223,7 +209,7 @@ export const Stage6Social = ({ onCustomSubmit }) => {
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
-            placeholder="TREASURE HUNT"
+            placeholder="ENTER DECRYPTED KEY"
             value={keyInput}
             onChange={(e) => setKeyInput(e.target.value)}
             className="flex-1 bg-black border-2 border-[#8b5a2b] rounded-xl px-4 py-3 text-sm text-yellow-300 focus:outline-none focus:border-yellow-400 uppercase tracking-widest font-mono font-bold shadow-inner"
