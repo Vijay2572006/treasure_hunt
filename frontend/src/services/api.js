@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE = '/api';
+const rawBase = import.meta.env.VITE_API_URL || '/api';
+export const API_BASE = rawBase.endsWith('/') ? rawBase.slice(0, -1) : rawBase;
 
 const getHeaders = () => {
   const token = localStorage.getItem('cyberquest_token');

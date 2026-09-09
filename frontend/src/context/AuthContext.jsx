@@ -40,6 +40,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const parseApiError = (err, fallbackMsg) => {
+    if (!err) return fallbackMsg;
+    if (err.response?.status === 404) {
+      return "Backend API server endpoint not found (404 Error). Ensure your Django backend is running and VITE_API_URL is configured in Vercel settings.";
+    }
+    const data = err.response?.data;
+    if (data) {
+      if (typeof data === 'string') return data;
+      if (data.error) {
+        if (typeof data.error === 'string') return data.error;
+        if (data.error.message) return data.error.message;
+        return JSON.stringify(data.error);
+      }
+      if (data.message) return data.message;
+      if (data.detail) return data.detail;
+      if (typeof data === 'object') {
+        const keys = Object.keys(data);
+        if (keys.length > 0) {
+          const firstKey = keys[0];
+          const val = data[firstKey];
+          const valStr = Array.isArray(val) ? val.join(', ') : String(val);
+          return `${firstKey}: ${valStr}`;
+        }
+      }
+    }
+    return err.message || fallbackMsg;
+  };
+
   const register = async (teamData) => {
     setError(null);
     try {
@@ -50,7 +78,7 @@ export const AuthProvider = ({ children }) => {
       await refreshStageData();
       return { success: true };
     } catch (err) {
-      const msg = err.response?.data ? JSON.stringify(err.response.data) : "Registration failed.";
+      const msg = parseApiError(err, "Registration failed.");
       setError(msg);
       return { success: false, error: msg };
     }
@@ -66,7 +94,7 @@ export const AuthProvider = ({ children }) => {
       await refreshStageData();
       return { success: true };
     } catch (err) {
-      const msg = err.response?.data?.error || "Login failed. Check team name & PIN.";
+      const msg = parseApiError(err, "Login failed. Check team name & PIN.");
       setError(msg);
       return { success: false, error: msg };
     }

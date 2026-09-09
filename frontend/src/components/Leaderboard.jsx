@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Trophy, X, RefreshCw, Shield, Award, Skull, Compass, Clock, CheckCircle } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE } from '../services/api';
 
 export const Leaderboard = ({ isOpen, onClose }) => {
   const [teams, setTeams] = useState([]);
@@ -9,7 +10,7 @@ export const Leaderboard = ({ isOpen, onClose }) => {
   const fetchLeaderboard = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/leaderboard/');
+      const res = await axios.get(`${API_BASE}/leaderboard/`);
       setTeams(res.data.leaderboard || []);
     } catch (err) {
       console.error('Failed to fetch leaderboard', err);

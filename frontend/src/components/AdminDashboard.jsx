@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Key, Lock, Users, Trash2, RefreshCw, X, Search, Trophy, Edit3, Save, Check, AlertCircle, Compass, Clock, Award, Hash, Pause, Play, Download, RotateCcw, FileText, Activity, BookOpen, Layers, Eye } from 'lucide-react';
 import axios from 'axios';
+import { API_BASE } from '../services/api';
 
 export const AdminDashboard = ({ isOpen, onClose }) => {
   const [adminPin, setAdminPin] = useState('');
@@ -70,20 +71,20 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     setLoading(true);
     try {
       // Fetch Teams Roster
-      const teamsRes = await axios.get('http://127.0.0.1:8000/api/admin/teams/');
+      const teamsRes = await axios.get(`${API_BASE}/admin/teams/`);
       setTeams(teamsRes.data.teams || []);
 
       // Fetch Leaderboard
-      const lbRes = await axios.get('http://127.0.0.1:8000/api/leaderboard/');
+      const lbRes = await axios.get(`${API_BASE}/leaderboard/`);
       setLeaderboard(lbRes.data.leaderboard || []);
 
       // Fetch Puzzles Configuration
-      const puzRes = await axios.get('http://127.0.0.1:8000/api/admin/puzzles/');
+      const puzRes = await axios.get(`${API_BASE}/admin/puzzles/`);
       const puzzleList = puzRes.data.puzzles || [];
       setPuzzles(puzzleList);
 
       // Fetch Audit Logs
-      const logsRes = await axios.get('http://127.0.0.1:8000/api/admin/logs/');
+      const logsRes = await axios.get(`${API_BASE}/admin/logs/`);
       setSubmissionLogs(logsRes.data.submission_logs || []);
       setHintLogs(logsRes.data.hint_logs || []);
       setIsEventPaused(logsRes.data.is_event_paused || false);
@@ -122,7 +123,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     setSuccessMsg('');
 
     try {
-      await axios.put(`http://127.0.0.1:8000/api/admin/puzzles/${editingStageNum}/`, editForm);
+      await axios.put(`${API_BASE}/admin/puzzles/${editingStageNum}/`, editForm);
 
       setSuccessMsg(`Stage #${editingStageNum} question, points (${editForm.points} PTS), and passphrase updated successfully!`);
       setTimeout(() => setSuccessMsg(''), 4000);
@@ -136,7 +137,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
 
   const handleToggleEventPause = async () => {
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/admin/event/toggle-pause/');
+      const res = await axios.post(`${API_BASE}/admin/event/toggle-pause/`);
       setIsEventPaused(res.data.is_paused);
       setSuccessMsg(res.data.message);
       setTimeout(() => setSuccessMsg(''), 3000);
@@ -166,7 +167,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     if (!editingTeam) return;
 
     try {
-      await axios.put(`http://127.0.0.1:8000/api/admin/teams/${editingTeam.id}/edit/`, teamForm);
+      await axios.put(`${API_BASE}/admin/teams/${editingTeam.id}/edit/`, teamForm);
       setEditingTeam(null);
       setSuccessMsg(`Team "${teamForm.team_name}" updated successfully!`);
       setTimeout(() => setSuccessMsg(''), 3000);
@@ -180,7 +181,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     if (!window.confirm(`Reset stage progress for team "${teamName}" back to Island #1?`)) return;
 
     try {
-      await axios.post(`http://127.0.0.1:8000/api/admin/teams/${teamId}/reset/`);
+      await axios.post(`${API_BASE}/admin/teams/${teamId}/reset/`);
       setSuccessMsg(`Team "${teamName}" progress reset to Island #1.`);
       setTimeout(() => setSuccessMsg(''), 3000);
       fetchAllAdminData(adminToken);
@@ -193,7 +194,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
     if (!window.confirm(`Are you sure you want to delete team "${teamName}" from the hunt database?`)) return;
 
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/admin/teams/${teamId}/`);
+      await axios.delete(`${API_BASE}/admin/teams/${teamId}/`);
       fetchAllAdminData(adminToken);
     } catch (err) {
       alert("Failed to delete team.");
