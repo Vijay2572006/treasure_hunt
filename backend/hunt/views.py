@@ -175,7 +175,7 @@ def submit_answer(request):
     current_stage = team.current_stage
     expected_key = PUZZLE_STAGES[current_stage]['key'].upper()
 
-    is_correct = (submitted_key == expected_key)
+    is_correct = (submitted_key.replace(' ', '').replace('-', '') == expected_key.replace(' ', '').replace('-', ''))
 
     # Calculate stage time (elapsed + stage penalties)
     stage_elapsed = team.current_stage_elapsed_seconds

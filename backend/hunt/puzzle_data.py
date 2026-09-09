@@ -67,14 +67,14 @@ PUZZLE_STAGES = {
     6: {
         "title": "Stage 6: Event Cipher & Anagram Forensics",
         "category": "Event Identity & Anagram Cipher",
-        "key": "IGNEXIA",
+        "key": "TREASUREHUNT",
         "points": 500,
         "hints": {
-            1: "Collect all 7 scrambled letters from the 3 audit log node streams: A, E, G, I, I, N, X.",
-            2: "This 7-letter term is the official title of this inter-college digital treasure hunt event.",
-            3: "Unscramble the 7 letters to spell the event passkey: IGNEXIA."
+            1: "Collect all 12 scrambled letters from the 3 audit log node streams: T, R, E, A, S, U, R, E, H, U, N, T.",
+            2: "This 12-letter phrase is the core title of this event (TREASURE HUNT).",
+            3: "Unscramble the 12 letters to spell the event passkey: TREASUREHUNT."
         },
-        "description": "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [G-I], [N-E-X], and [I-A]. Unscramble all 7 letters to recover the grand inter-college digital treasure hunt event title.",
+        "description": "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [T-R-E-A], [S-U-R-E], and [H-U-N-T]. Unscramble all 12 letters to recover the grand event title.",
     },
     7: {
         "title": "Stage 7: The Master Decryption Console",
