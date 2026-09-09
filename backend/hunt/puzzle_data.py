@@ -10,11 +10,11 @@ PUZZLE_STAGES = {
         "key": "ECHOMATRIX",
         "points": 500,
         "hints": {
-            1: "The sound pulses carry a rhythmic pattern of short dots and long dashes. Look for a repeating acoustic sequence.",
-            2: "Compare the dot-dash transmission against the Morse Legend table to translate characters E, C, H, O...",
-            3: "The first part of the passkey echoes sound waves, and the second part refers to a digital grid system."
+            1: "Press PLAY on the audio player to listen to the rhythmic pattern of short dots (.) and long dashes (-).",
+            2: "Use the Morse Legend table to translate each acoustic pulse sequence: . (E), -.-. (C), .... (H), --- (O)...",
+            3: "Combine the word for sound reflections ('ECHO') with a digital grid system ('MATRIX') to form ECHOMATRIX."
         },
-        "description": "An encrypted emergency transmission was captured over Sector 7. Locate the audio control inside the question payload, initiate signal playback to generate the frequency pattern, decode the pulse sequence using your Morse Directory, and submit the passkey.",
+        "description": "An encrypted audio transmission was captured. Initiate signal playback to listen to the Morse code pulse pattern, use the provided Morse Legend table to translate the dots and dashes, and submit the 10-letter passkey.",
     },
     2: {
         "title": "Stage 2: OSINT Geolocation Artifact",
@@ -22,11 +22,11 @@ PUZZLE_STAGES = {
         "key": "ALHAMBRA",
         "points": 500,
         "hints": {
-            1: "Observe the intricate Islamic geometric mosaic tilework and horseshoe arch structure from medieval Spain.",
-            2: "Search the GPS coordinates 37.1773° N, 3.5898° W located in Granada, Andalusia.",
-            3: "This red-walled fortress palace of the Nasrid Dynasty is one of Spain's most iconic historic landmarks."
+            1: "Examine the historic photo fragment showing Islamic geometric tilework and horseshoe arches from medieval Spain.",
+            2: "Search the provided GPS coordinates (37.1773° N, 3.5898° W) located on Sabika Hill in Granada, Andalusia.",
+            3: "Identify the famous Nasrid Dynasty red fortress palace (whose Arabic name means 'The Red One'): ALHAMBRA."
         },
-        "description": "An encrypted photographic fragment was extracted from a suspect device. Identify the ancient Nasrid Dynasty palace-fortress (whose Arabic name literally translates to 'The Red One', situated on Sabika Hill in Granada, Andalusia at coordinates 37.1773° N, 3.5898° W) to trace the origin.",
+        "description": "An encrypted photographic fragment was extracted from a suspect device. Identify the famous Nasrid Dynasty palace-fortress in Granada, Spain located at GPS coordinates 37.1773° N, 3.5898° W to submit its iconic 8-letter name.",
     },
     3: {
         "title": "Stage 3: The Metadata Vault",
@@ -34,11 +34,11 @@ PUZZLE_STAGES = {
         "key": "METAVOID",
         "points": 500,
         "hints": {
-            1: "Surface visual pixels are deceiving. Technical parameters often hide inside non-visual file layers.",
-            2: "Inspect embedded EXIF attributes such as XMP UserComment or custom header parameters.",
-            3: "Combine the prefix for structural data descriptions with the word for an empty, endless space."
+            1: "Visual surface pixels are blank. Click the 'INSPECT METADATA' button to view hidden file parameters.",
+            2: "Look inside the embedded EXIF header fields for the hidden UserComment tag value.",
+            3: "Combine the prefix for file information ('META') with the word for an empty space ('VOID') to form METAVOID."
         },
-        "description": "A secured document file was recovered from the target server. The visible surface content is blank, but hidden technical parameters reside inside the file metadata layers.",
+        "description": "A secured document file was recovered from the target server. The visual document area is blank, but hidden parameters reside inside the file header. Toggle the Metadata Inspector to reveal the 8-letter security passkey.",
     },
     4: {
         "title": "Stage 4: Visual Vector Rebus Cipher",
@@ -46,11 +46,11 @@ PUZZLE_STAGES = {
         "key": "SHADOWNET",
         "points": 500,
         "hints": {
-            1: "Analyze the first graphic artifact depicting a dark optical occlusion / solar eclipse silhouette.",
-            2: "Analyze the second graphic artifact depicting an interconnected mesh node topology graph.",
-            3: "Combine the dark silhouette concept (SHADOW) with the interconnected mesh topology (NET)."
+            1: "Analyze Artifact 1: A dark silhouette and solar eclipse representing a SHADOW.",
+            2: "Analyze Artifact 2: A woven grid mesh representing a physical NET.",
+            3: "Join Artifact 1 + Artifact 2 together (SHADOW + NET) to form the 9-letter passkey SHADOWNET."
         },
-        "description": "The security terminal generated two abstract visual vector artifacts. Deduce the lateral concept of each graphic artifact to form the 9-letter encrypted network term.",
+        "description": "Two visual vector artifacts are displayed: Artifact 1 depicts a dark silhouette eclipse (SHADOW), and Artifact 2 depicts a woven mesh grid (NET). Deduce both concepts and join them to form the 9-letter network passkey.",
     },
     5: {
         "title": "Stage 5: Steganography & Polybius Cipher Matrix",
@@ -58,23 +58,23 @@ PUZZLE_STAGES = {
         "key": "CYBERVAULT",
         "points": 500,
         "hints": {
-            1: "Locate the 5x5 dual-pair Polybius grid matrix. Coordinates are formatted as (Row, Column).",
-            2: "Map each pair of numbers: (1,2)=C/D, (3,3)=Y/Z, (1,1)=A/B, (1,3)=E/F, (2,4)=Q/R...",
-            3: "Disambiguate which character from each dual pair forms a valid 10-letter cybersecurity storage passkey."
+            1: "An intercepted signal gave 10 coordinate pairs: (1,2) (3,3) (1,1) (1,3) (2,4) (3,1) (1,1) (3,1) (2,1) (2,5).",
+            2: "Locate each coordinate on the 5x5 Polybius Grid where the first number is the Row and the second is the Column.",
+            3: "Map the coordinate letters (C/D -> C, Y/Z -> Y, A/B -> B, E/F -> E...) to spell the 10-letter passkey CYBERVAULT."
         },
-        "description": "An encrypted steganographic signal transmission was intercepted. Use the 5x5 dual-letter Polybius grid cipher tool to decode the coordinate stream into the security passkey.",
+        "description": "An encrypted coordinate transmission was intercepted: (1,2) (3,3) (1,1) (1,3) (2,4) (3,1) (1,1) (3,1) (2,1) (2,5). Use the 5x5 Polybius grid matrix to map each (Row, Column) pair into letters and submit the 10-letter cybersecurity passkey.",
     },
     6: {
-        "title": "Stage 6: Multi-Node Audit Log & Complex Anagram Forensics",
-        "category": "Network Log Forensics & Multi-Token Anagram",
-        "key": "OBSIDIANVAULT",
+        "title": "Stage 6: Event Cipher & Anagram Forensics",
+        "category": "Event Identity & Anagram Cipher",
+        "key": "IGNEXIA",
         "points": 500,
         "hints": {
-            1: "Assemble the 3 fragmented node log tokens: 'I-V-B-L', 'S-A-D-U-I', and 'O-T-A-N'.",
-            2: "Combine all 13 letters into a single scrambled bank: I - V - B - L - S - A - D - U - I - O - T - A - N.",
-            3: "This 13-letter term combines the dark volcanic rock name (OBSIDIAN) with a secure storage room (VAULT)."
+            1: "Collect all 7 scrambled letters from the 3 audit log node streams: A, E, G, I, I, N, X.",
+            2: "This 7-letter term is the official title of this inter-college digital treasure hunt event.",
+            3: "Unscramble the 7 letters to spell the event passkey: IGNEXIA."
         },
-        "description": "An intercepted server audit log contains multi-node scrambled transposition tokens. Analyze the 3 node log streams and unscramble the 13-letter sequence to recover the system key.",
+        "description": "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [G-I], [N-E-X], and [I-A]. Unscramble all 7 letters to recover the grand inter-college digital treasure hunt event title.",
     },
     7: {
         "title": "Stage 7: The Master Decryption Console",
@@ -82,11 +82,11 @@ PUZZLE_STAGES = {
         "key": "SINGULARITY",
         "points": 1000,
         "hints": {
-            1: "Your mission progress contains clues. Collect the first character from each of your previous 6 cleared stage keys.",
-            2: "Arrange the initial letters (E, A, M, S, C, O) into position and recall the ultimate point of technological evolution.",
-            3: "This scientific term describes the theoretical point in time when artificial intelligence surpasses human control."
+            1: "Move your cursor inside the dark chamber to beam your flashlight and reveal the 11 hidden golden letters: S, I, N, G, U, L, A, R, I, T, Y.",
+            2: "Arrange the 11 letters (or combine the initial letters E, A, M, S, C, I from cleared stages 1-6) into position.",
+            3: "This 11-letter scientific term describes the point in time when technological growth and artificial intelligence become uncontrollable and irreversible: SINGULARITY."
         },
-        "description": "The final central firewall terminal requires the master passphrase. Combine all stage keys unlocked during your mission into the master decryption matrix.",
+        "description": "The final Treasure Point is engulfed in pitch darkness. Sweep your flashlight beam across the dark chamber to discover 11 hidden glowing letters, and unscramble them to reveal the 11-letter scientific term for the ultimate point of technological evolution.",
     }
 }
 

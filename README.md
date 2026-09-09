@@ -183,13 +183,13 @@ d:/treasure/
 
 | Stage | Puzzle Type | Solution Passkey |
 |-------|------------|------------------|
-| **Stage 1** | Audio / Morse Glitch | `ECHOMATRIX` |
-| **Stage 2** | OSINT Geolocation | `ALHAMBRA` |
-| **Stage 3** | Metadata File Vault | `METAVOID` |
-| **Stage 4** | Cryptic Rebus | `SANDBOX` |
-| **Stage 5** | HTML Inspector / 404 | `CIPHERPUNK` |
-| **Stage 6** | Social Chat / Forum | `OVERRIDE` |
-| **Stage 7** | Master Decryption Matrix | `SINGULARITY` |
+| Stage 1 | Audio / Morse Glitch | `ECHOMATRIX` |
+| Stage 2 | OSINT Geolocation | `ALHAMBRA` |
+| Stage 3 | Metadata File Vault | `METAVOID` |
+| Stage 4 | Cryptic Rebus | `SHADOWNET` |
+| Stage 5 | Polybius Steganography | `CYBERVAULT` |
+| Stage 6 | Event Cipher & Anagram | `IGNEXIA` |
+| Stage 7 | Master Decryption Matrix | `SINGULARITY` |
 
 ---
 

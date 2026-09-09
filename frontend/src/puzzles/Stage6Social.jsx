@@ -9,8 +9,8 @@ export const Stage6Social = ({ onCustomSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
 
-  // 13-Letter Anagram Token: "OBSIDIANVAULT"
-  const initialLetters = ['I', 'V', 'B', 'L', 'S', 'A', 'D', 'U', 'I', 'O', 'T', 'A', 'N'];
+  // 7-Letter Anagram Token: "IGNEXIA"
+  const initialLetters = ['G', 'I', 'N', 'E', 'X', 'I', 'A'];
   const [userLetters, setUserLetters] = useState([]);
 
   const handleAddLetter = (letter, idx) => {
@@ -65,16 +65,16 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           </div>
           <div>
             <h2 className="text-2xl font-black font-mono text-[#3e2414] tracking-wider uppercase">
-              {stageData?.title || "Island 6: Multi-Node Audit Log & Complex Anagram Forensics"}
+              {stageData?.title || "Island 6: Event Cipher & Anagram Forensics"}
             </h2>
             <span className="text-xs font-mono text-yellow-300 bg-[#3e2414] px-3 py-1 rounded-full font-bold uppercase tracking-wider inline-block mt-1">
-              CATEGORY: {stageData?.category || "Network Log Forensics & Multi-Token Anagram"}
+              CATEGORY: {stageData?.category || "Event Identity & Anagram Cipher"}
             </span>
           </div>
         </div>
 
         <p className="text-sm text-[#3e2414] leading-relaxed font-sans mt-3 font-semibold">
-          {stageData?.description || "An intercepted server audit log contains multi-node scrambled transposition tokens. Analyze the 3 node log streams and unscramble the 13-letter sequence to recover the system key."}
+          {stageData?.description || "An intercepted server audit log contains 3 node log streams with scrambled letter tokens: [G-I], [N-E-X], and [I-A]. Unscramble all 7 letters to recover the grand inter-college digital treasure hunt event title."}
         </p>
       </div>
 
@@ -92,17 +92,17 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           </div>
 
           <div className="space-y-2 text-[11px] font-mono">
-            <div className="text-[#d9c4a5]">[04:42:10 AM] NODE_ALPHA_01: "STREAM_A = I - V - B - L"</div>
-            <div className="text-[#d9c4a5]">[04:43:05 AM] NODE_BETA_02: "STREAM_B = S - A - D - U - I"</div>
-            <div className="text-[#d9c4a5]">[04:44:00 AM] NODE_GAMMA_03: "STREAM_C = O - T - A - N"</div>
+            <div className="text-[#d9c4a5]">[04:42:10 AM] NODE_ALPHA_01: "STREAM_A = G - I"</div>
+            <div className="text-[#d9c4a5]">[04:43:05 AM] NODE_BETA_02: "STREAM_B = N - E - X"</div>
+            <div className="text-[#d9c4a5]">[04:44:00 AM] NODE_GAMMA_03: "STREAM_C = I - A"</div>
             
             <div className="text-yellow-300 bg-[#3e2414] p-3 rounded-xl border border-[#d4af37]/50 font-bold">
               <div className="flex items-center justify-between">
-                <span>COMBINED 13-LETTER SCRAMBLED MATRIX TOKEN:</span>
+                <span>COMBINED 7-LETTER SCRAMBLED MATRIX TOKEN:</span>
                 <Clock className="w-3.5 h-3.5 text-amber-400" />
               </div>
               <div className="text-yellow-300 text-xs tracking-widest mt-1 font-mono">
-                BANK: <strong className="text-yellow-400">" I - V - B - L - S - A - D - U - I - O - T - A - N "</strong>
+                BANK: <strong className="text-yellow-400">" G - I - N - E - X - I - A "</strong>
               </div>
             </div>
           </div>
@@ -113,7 +113,7 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-yellow-300 uppercase flex items-center space-x-1.5">
               <Shuffle className="w-4 h-4 text-yellow-400" />
-              <span>13-LETTER COMPLEX ANAGRAM WORKBENCH</span>
+              <span>7-LETTER EVENT ANAGRAM WORKBENCH</span>
             </span>
 
             <button
@@ -152,7 +152,7 @@ export const Stage6Social = ({ onCustomSubmit }) => {
           <div className="bg-[#3e2414] p-3.5 rounded-xl border border-[#8b5a2b] min-h-[55px] flex items-center justify-between px-4">
             <div className="flex items-center space-x-1 flex-1 overflow-x-auto">
               {userLetters.length === 0 ? (
-                <span className="text-xs text-[#d9c4a5] italic">Tap letters above to construct 13-letter unscrambled key...</span>
+                <span className="text-xs text-[#d9c4a5] italic">Tap letters above to construct 7-letter event key...</span>
               ) : (
                 userLetters.map((item, idx) => (
                   <button

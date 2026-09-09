@@ -65,14 +65,26 @@ export const Stage4Rebus = ({ onCustomSubmit }) => {
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 my-4">
           
-          {/* Artifact 1: Dark Optical Eclipse Silhouette (SHADOW) */}
+          {/* Artifact 1: Human Figure Casting Ground Shadow (SHADOW) */}
           <div className="bg-[#24150c] border-2 border-[#8b5a2b] rounded-2xl p-4 text-center w-full max-w-[210px] shadow-[0_0_20px_rgba(212,175,55,0.3)] flex flex-col items-center justify-center min-h-[170px]">
             <svg className="w-28 h-28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="38" fill="#140c08" stroke="#d4af37" strokeWidth="1.5" strokeDasharray="3 3" />
-              <circle cx="45" cy="45" r="32" fill="#3e2414" />
-              <path d="M 20 60 Q 50 20 80 60" stroke="#ffd700" strokeWidth="2" fill="none" opacity="0.7" />
-              <circle cx="58" cy="52" r="28" fill="#000000" />
-              <circle cx="58" cy="52" r="29" stroke="#d4af37" strokeWidth="1" fill="none" opacity="0.8" />
+              {/* Sun Light Source */}
+              <circle cx="25" cy="25" r="10" fill="#ffd700" opacity="0.9" />
+              <line x1="25" y1="8" x2="25" y2="12" stroke="#ffd700" strokeWidth="2" />
+              <line x1="25" y1="38" x2="25" y2="42" stroke="#ffd700" strokeWidth="2" />
+              <line x1="8" y1="25" x2="12" y2="25" stroke="#ffd700" strokeWidth="2" />
+              <line x1="38" y1="25" x2="42" y2="25" stroke="#ffd700" strokeWidth="2" />
+
+              {/* Ground Line */}
+              <line x1="10" y1="75" x2="90" y2="75" stroke="#8b5a2b" strokeWidth="2" />
+
+              {/* Human Figure (Lit Silhouette) */}
+              <circle cx="45" cy="42" r="6" fill="#ffd700" />
+              <path d="M 45 48 L 45 62 M 45 52 L 38 58 M 45 52 L 52 58 M 45 62 L 40 75 M 45 62 L 50 75" stroke="#ffd700" strokeWidth="3" strokeLinecap="round" />
+
+              {/* Cast Shadow on Ground */}
+              <ellipse cx="68" cy="77" rx="18" ry="4" fill="#000000" opacity="0.85" />
+              <path d="M 50 75 L 82 77" stroke="#000000" strokeWidth="3" opacity="0.75" strokeLinecap="round" />
             </svg>
           </div>
 
@@ -80,26 +92,52 @@ export const Stage4Rebus = ({ onCustomSubmit }) => {
             <Plus className="w-6 h-6" />
           </div>
 
-          {/* Artifact 2: Mesh Topology Graph (NET) */}
+          {/* Artifact 2: Physical Woven Net Mesh (NET) */}
           <div className="bg-[#24150c] border-2 border-[#8b5a2b] rounded-2xl p-4 text-center w-full max-w-[210px] shadow-[0_0_20px_rgba(212,175,55,0.3)] flex flex-col items-center justify-center min-h-[170px]">
             <svg className="w-28 h-28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="20" y1="30" x2="50" y2="15" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="50" y1="15" x2="80" y2="30" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="80" y1="30" x2="80" y2="70" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="80" y1="70" x2="50" y2="85" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="50" y1="85" x2="20" y2="70" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="20" y1="70" x2="20" y2="30" stroke="#ffd700" strokeWidth="1.5" />
-              <line x1="20" y1="30" x2="50" y2="50" stroke="#d4af37" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="80" y1="30" x2="50" y2="50" stroke="#d4af37" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="80" y1="70" x2="50" y2="50" stroke="#d4af37" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="20" y1="70" x2="50" y2="50" stroke="#d4af37" strokeWidth="1" strokeDasharray="2 2" />
-              <circle cx="20" cy="30" r="4" fill="#ffd700" />
-              <circle cx="50" cy="15" r="4" fill="#ffd700" />
-              <circle cx="80" cy="30" r="4" fill="#ffd700" />
-              <circle cx="80" cy="70" r="4" fill="#ffd700" />
-              <circle cx="50" cy="85" r="4" fill="#ffd700" />
-              <circle cx="20" cy="70" r="4" fill="#ffd700" />
-              <circle cx="50" cy="50" r="6" fill="#d4af37" stroke="#ffd700" strokeWidth="2" />
+              {/* Woven Net Mesh Grid Lines */}
+              <line x1="20" y1="20" x2="80" y2="20" stroke="#ffd700" strokeWidth="2" />
+              <line x1="20" y1="35" x2="80" y2="35" stroke="#ffd700" strokeWidth="2" />
+              <line x1="20" y1="50" x2="80" y2="50" stroke="#ffd700" strokeWidth="2" />
+              <line x1="20" y1="65" x2="80" y2="65" stroke="#ffd700" strokeWidth="2" />
+              <line x1="20" y1="80" x2="80" y2="80" stroke="#ffd700" strokeWidth="2" />
+              
+              <line x1="20" y1="20" x2="20" y2="80" stroke="#ffd700" strokeWidth="2" />
+              <line x1="35" y1="20" x2="35" y2="80" stroke="#ffd700" strokeWidth="2" />
+              <line x1="50" y1="20" x2="50" y2="80" stroke="#ffd700" strokeWidth="2" />
+              <line x1="65" y1="20" x2="65" y2="80" stroke="#ffd700" strokeWidth="2" />
+              <line x1="80" y1="20" x2="80" y2="80" stroke="#ffd700" strokeWidth="2" />
+
+              {/* Net Knots */}
+              <circle cx="20" cy="20" r="2.5" fill="#d4af37" />
+              <circle cx="35" cy="20" r="2.5" fill="#d4af37" />
+              <circle cx="50" cy="20" r="2.5" fill="#d4af37" />
+              <circle cx="65" cy="20" r="2.5" fill="#d4af37" />
+              <circle cx="80" cy="20" r="2.5" fill="#d4af37" />
+
+              <circle cx="20" cy="35" r="2.5" fill="#d4af37" />
+              <circle cx="35" cy="35" r="2.5" fill="#d4af37" />
+              <circle cx="50" cy="35" r="2.5" fill="#d4af37" />
+              <circle cx="65" cy="35" r="2.5" fill="#d4af37" />
+              <circle cx="80" cy="35" r="2.5" fill="#d4af37" />
+
+              <circle cx="20" cy="50" r="2.5" fill="#d4af37" />
+              <circle cx="35" cy="50" r="2.5" fill="#d4af37" />
+              <circle cx="50" cy="50" r="2.5" fill="#d4af37" />
+              <circle cx="65" cy="50" r="2.5" fill="#d4af37" />
+              <circle cx="80" cy="50" r="2.5" fill="#d4af37" />
+
+              <circle cx="20" cy="65" r="2.5" fill="#d4af37" />
+              <circle cx="35" cy="65" r="2.5" fill="#d4af37" />
+              <circle cx="50" cy="65" r="2.5" fill="#d4af37" />
+              <circle cx="65" cy="65" r="2.5" fill="#d4af37" />
+              <circle cx="80" cy="65" r="2.5" fill="#d4af37" />
+
+              <circle cx="20" cy="80" r="2.5" fill="#d4af37" />
+              <circle cx="35" cy="80" r="2.5" fill="#d4af37" />
+              <circle cx="50" cy="80" r="2.5" fill="#d4af37" />
+              <circle cx="65" cy="80" r="2.5" fill="#d4af37" />
+              <circle cx="80" cy="80" r="2.5" fill="#d4af37" />
             </svg>
           </div>
 

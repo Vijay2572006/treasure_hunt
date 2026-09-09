@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { StageTimer } from '../components/StageTimer';
-import { ShieldCheck, Key, AlertCircle, ArrowRight, Award, Flashlight, Skull } from 'lucide-react';
+import { ShieldCheck, Key, AlertCircle, ArrowRight, Award, Flashlight, Skull, HelpCircle, Lightbulb } from 'lucide-react';
 
 export const Stage7Master = ({ onCustomSubmit }) => {
   const { stageData, submitKey } = useAuth();
@@ -65,8 +65,8 @@ export const Stage7Master = ({ onCustomSubmit }) => {
       />
       
       {/* Island Header - Light Coffee Parchment Theme */}
-      <div className="bg-[#dfc9ab] border-4 border-[#8b5a2b] rounded-3xl p-6 shadow-2xl text-[#23140c]">
-        <div className="flex items-center space-x-3 mb-3">
+      <div className="bg-[#dfc9ab] border-4 border-[#8b5a2b] rounded-3xl p-6 shadow-2xl text-[#23140c] space-y-4">
+        <div className="flex items-center space-x-3">
           <div className="p-3 bg-[#3e2414] border-2 border-[#d4af37] rounded-2xl text-yellow-300 shadow-md">
             <Skull className="w-7 h-7 animate-pulse text-yellow-400" />
           </div>
@@ -80,9 +80,27 @@ export const Stage7Master = ({ onCustomSubmit }) => {
           </div>
         </div>
 
-        <p className="text-sm text-[#3e2414] leading-relaxed font-sans mt-3 font-semibold">
-          The final Treasure Point is engulfed in pitch darkness. Move your flashlight beam across the dark screen to discover the hidden minimal letters, then submit the master passphrase to claim the ultimate treasure!
-        </p>
+        {/* QUESTION BOX */}
+        <div className="bg-[#24150c] p-4 rounded-2xl border-2 border-[#8b5a2b] text-[#f4e8d3]">
+          <div className="text-xs font-mono font-bold text-yellow-400 uppercase tracking-wider mb-1 flex items-center space-x-1.5">
+            <HelpCircle className="w-4 h-4 text-amber-400" />
+            <span>PUZZLE QUESTION:</span>
+          </div>
+          <p className="text-sm font-sans font-bold leading-relaxed text-[#f4e8d3]">
+            What is the 11-letter scientific term for the ultimate point of technological evolution where artificial intelligence surpasses human control?
+          </p>
+        </div>
+
+        {/* TIP BOX */}
+        <div className="bg-[#3e2414]/20 p-4 rounded-2xl border border-[#8b5a2b] text-[#3e2414]">
+          <div className="text-xs font-mono font-bold text-[#8b5a2b] uppercase tracking-wider mb-1 flex items-center space-x-1.5">
+            <Lightbulb className="w-4 h-4 text-[#8b5a2b]" />
+            <span>INTERACTIVE TIP:</span>
+          </div>
+          <p className="text-xs font-sans font-semibold leading-relaxed text-[#23140c]">
+            The final Treasure Point is engulfed in pitch darkness. Move your flashlight beam across the dark screen to discover the hidden minimal letters, then submit the master passphrase to claim the ultimate treasure!
+          </p>
+        </div>
       </div>
 
       {/* Pitch-Black Full Dark Screen Exploration Chamber */}
