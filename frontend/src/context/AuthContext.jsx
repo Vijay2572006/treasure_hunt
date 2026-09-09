@@ -43,11 +43,20 @@ export const AuthProvider = ({ children }) => {
   const parseApiError = (err, fallbackMsg) => {
     if (!err) return fallbackMsg;
     if (err.response?.status === 404) {
-      return "Backend API server endpoint not found (404 Error). Ensure your Django backend is running and VITE_API_URL is configured in Vercel settings.";
+      return "Backend API server endpoint not found (404 Error).";
     }
     const data = err.response?.data;
     if (data) {
-      if (typeof data === 'string') return data;
+      if (typeof data === 'string') {
+        if (data.includes('<!DOCTYPE') || data.includes('<html')) {
+          const titleMatch = data.match(/<title>(.*?)<\/title>/i);
+          if (titleMatch && titleMatch[1]) {
+            return `Server Exception: ${titleMatch[1]}`;
+          }
+          return fallbackMsg;
+        }
+        return data;
+      }
       if (data.error) {
         if (typeof data.error === 'string') return data.error;
         if (data.error.message) return data.error.message;
