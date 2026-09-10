@@ -436,19 +436,6 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
 
               <button
                 type="button"
-                onClick={() => setActiveTab('leaderboard')}
-                className={`flex-1 py-3 px-3 font-bold flex items-center justify-center space-x-1.5 border-r border-[#8b5a2b] transition-colors ${
-                  activeTab === 'leaderboard'
-                    ? 'bg-[#dfc9ab] text-[#3e2414] font-black'
-                    : 'hover:bg-[#3e2414] text-[#d9c4a5]'
-                }`}
-              >
-                <Trophy className="w-4 h-4 text-amber-400" />
-                <span>LEADERBOARD</span>
-              </button>
-
-              <button
-                type="button"
                 onClick={() => setActiveTab('logs')}
                 className={`flex-1 py-3 px-3 font-bold flex items-center justify-center space-x-1.5 transition-colors ${
                   activeTab === 'logs'
@@ -881,70 +868,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {/* TAB 3: EVENT LEADERBOARD */}
-            {activeTab === 'leaderboard' && (
-              <div className="p-6 overflow-y-auto flex-1 font-mono text-xs space-y-4">
-                <div className="bg-[#24150c] p-4 rounded-2xl border-2 border-[#8b5a2b] text-[#f4e8d3] flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Trophy className="w-5 h-5 text-amber-400" />
-                    <span className="font-bold text-xs uppercase text-yellow-300">
-                      LIVE EVENT CAPTAIN'S LEADERBOARD RANKINGS
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-[#d9c4a5]">TOTAL TEAMS: {leaderboard.length}</span>
-                </div>
 
-                {leaderboard.length === 0 ? (
-                  <div className="text-center py-12 text-[#5c381e] italic">
-                    No teams have registered on the leaderboard yet.
-                  </div>
-                ) : (
-                  <div className="overflow-x-auto bg-[#24150c] p-4 rounded-2xl border-2 border-[#8b5a2b] text-[#f4e8d3]">
-                    <table className="w-full text-left border-collapse min-w-[650px]">
-                      <thead>
-                        <tr className="border-b border-[#8b5a2b] text-yellow-300 uppercase text-[10px] tracking-wider">
-                          <th className="pb-3">RANK</th>
-                          <th className="pb-3">TEAM NAME & COLLEGE</th>
-                          <th className="pb-3 text-center">ISLAND CLEARED</th>
-                          <th className="pb-3 text-center">SCORE</th>
-                          <th className="pb-3 text-center">TIME TAKEN</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-[#8b5a2b]/40">
-                        {leaderboard.map((t) => (
-                          <tr key={t.rank} className="hover:bg-[#3e2414]/60 transition-colors">
-                            <td className="py-3 font-bold">
-                              {t.rank === 1 ? (
-                                <span className="px-2.5 py-1 bg-yellow-400 text-black font-black rounded-lg">1st 👑</span>
-                              ) : t.rank === 2 ? (
-                                <span className="px-2.5 py-1 bg-slate-300 text-black font-black rounded-lg">2nd 🥈</span>
-                              ) : t.rank === 3 ? (
-                                <span className="px-2.5 py-1 bg-amber-600 text-black font-black rounded-lg">3rd 🥉</span>
-                              ) : (
-                                <span className="text-[#d9c4a5] font-bold ml-2">#{t.rank}</span>
-                              )}
-                            </td>
-                            <td className="py-3">
-                              <strong className="text-yellow-300 text-xs block font-extrabold">{t.team_name}</strong>
-                              <span className="text-[10px] text-[#d9c4a5] block">{t.college}</span>
-                            </td>
-                            <td className="py-3 text-center font-bold text-amber-300">
-                              {t.is_completed ? 'TREASURE REACHED 🪙' : `ISLAND #${t.current_stage}`}
-                            </td>
-                            <td className="py-3 text-center font-black text-yellow-300 text-sm">
-                              {t.total_score} PTS
-                            </td>
-                            <td className="py-3 text-center text-[#d9c4a5]">
-                              {t.formatted_time}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </div>
-            )}
 
             {/* TAB 4: AUDIT LOGS & EVENT ACTIVITY */}
             {activeTab === 'logs' && (
