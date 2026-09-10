@@ -37,7 +37,7 @@ class CyberQuestBackendTests(TestCase):
         reg_res = self.client.post('/api/register/', self.register_data, format='json')
         token = reg_res.data['token']
 
-        keys = ["ECHOMATRIX", "ALHAMBRA", "METAVOID", "SHADOWNET", "CYBERVAULT", "IGNEXIA", "SINGULARITY"]
+        keys = ["ECHOMATRIX", "ALHAMBRA", "METAVOID", "SHADOWNET", "CYBERVAULT", "TREASUREHUNT", "SINGULARITY"]
         for idx, key in enumerate(keys, start=1):
             sub = self.client.post('/api/submit/', {'key': key}, HTTP_AUTHORIZATION=f'Bearer {token}', format='json')
             self.assertTrue(sub.data['correct'])

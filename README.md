@@ -188,7 +188,7 @@ d:/treasure/
 | Stage 3 | Metadata File Vault | `METAVOID` |
 | Stage 4 | Cryptic Rebus | `SHADOWNET` |
 | Stage 5 | Polybius Steganography | `CYBERVAULT` |
-| Stage 6 | Event Cipher & Anagram | `IGNEXIA` |
+| Stage 6 | Event Cipher & Anagram | `TREASURE HUNT` |
 | Stage 7 | Master Decryption Matrix | `SINGULARITY` |
 
 ---
