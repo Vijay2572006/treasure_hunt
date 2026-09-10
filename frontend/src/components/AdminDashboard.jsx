@@ -868,9 +868,7 @@ export const AdminDashboard = ({ isOpen, onClose }) => {
               </div>
             )}
 
-
-
-            {/* TAB 4: AUDIT LOGS & EVENT ACTIVITY */}
+            {/* TAB 3: AUDIT LOGS & EVENT ACTIVITY */}
             {activeTab === 'logs' && (
               <div className="p-6 overflow-y-auto flex-1 font-mono text-xs space-y-4">
                 <div className="bg-[#24150c] p-4 rounded-2xl border-2 border-[#8b5a2b] text-[#f4e8d3] flex items-center justify-between">

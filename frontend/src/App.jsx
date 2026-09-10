@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
 import { AuthModal } from './components/AuthModal';
 import { StageNavigation } from './components/StageNavigation';
 import { AdminDashboard } from './components/AdminDashboard';
-import { Trophy, Compass, ShieldCheck, Skull, ArrowRight } from 'lucide-react';
 
-// Puzzle Components
 import { Stage1Audio } from './puzzles/Stage1Audio';
 import { Stage2Osint } from './puzzles/Stage2Osint';
 import { Stage3Metadata } from './puzzles/Stage3Metadata';
@@ -16,213 +14,149 @@ import { Stage5Inspect } from './puzzles/Stage5Inspect';
 import { Stage6Social } from './puzzles/Stage6Social';
 import { Stage7Master } from './puzzles/Stage7Master';
 
-export default function App() {
-  const { team, stageData, token, loading, refreshStageData } = useAuth();
+import { HelpCircle, ShieldCheck, Compass, ArrowLeft, Lock, CheckCircle2 } from 'lucide-react';
+
+const MainContent = () => {
+  const { team, stageData, loading, error, submitKey } = useAuth();
+  const [landingViewState, setLandingViewState] = useState('landing'); // 'landing' | 'register'
+  const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
   
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('landing'); // 'landing' | 'map' | 'puzzle'
-  const [activeStage, setActiveStage] = useState(1);
-  const [toastMessage, setToastMessage] = useState('');
+  // Navigation mode for logged-in teams: 'map' vs 'stage'
+  const [viewMode, setViewMode] = useState('map');
+  const [activeStageNum, setActiveStageNum] = useState(1);
+  const [stageSuccessNotice, setStageSuccessNotice] = useState('');
 
-  // Handle initial view state based on authentication
+  // Default active stage to team's current stage when stageData updates
   useEffect(() => {
-    if (token && team) {
-      if (team.is_completed) {
-        setViewMode('map');
-      } else {
-        setViewMode('map');
-      }
-    } else {
-      setViewMode('landing');
+    if (team) {
+      setActiveStageNum(team.current_stage);
     }
-  }, [token, team]);
-
-  // Sync active stage with team current stage when stageData updates
-  useEffect(() => {
-    if (stageData && !stageData.is_completed) {
-      setActiveStage(stageData.current_stage);
-    }
-  }, [stageData]);
-
-  const currentStage = team?.current_stage || 1;
-  const isCompleted = team?.is_completed || false;
-
-  const handleCustomSubmit = async (key) => {
-    const { submitKey } = useAuth.getState ? useAuth.getState() : {};
-    return { correct: false, message: 'Submitting...' };
-  };
-
-  const handleSelectStageFromMap = (stageNum) => {
-    if (stageNum <= currentStage) {
-      setActiveStage(stageNum);
-      setViewMode('puzzle');
-    }
-  };
-
-  const handleStageSuccess = async (resMessage) => {
-    setToastMessage(resMessage || "Island Cleared! Returning to Voyage Map...");
-    setTimeout(async () => {
-      setToastMessage('');
-      await refreshStageData();
-      setViewMode('map');
-    }, 1800);
-  };
-
-  const renderActivePuzzle = () => {
-    const stageNum = activeStage;
-    switch (stageNum) {
-      case 1: return <Stage1Audio onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 2: return <Stage2Osint onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 3: return <Stage3Metadata onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 4: return <Stage4Rebus onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 5: return <Stage5Inspect onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 6: return <Stage6Social onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Passkey Key.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      case 7: return <Stage7Master onCustomSubmit={async (key) => {
-        const { api } = await import('./services/api');
-        try {
-          const res = await api.submitAnswer(key);
-          handleStageSuccess(res.message);
-          return { correct: true, message: res.message };
-        } catch (err) {
-          const errMsg = err.response?.data?.error || "Incorrect Master Passkey.";
-          return { correct: false, message: errMsg };
-        }
-      }} />;
-      default: return <Stage1Audio />;
-    }
-  };
+  }, [team?.current_stage]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-pirate-dark flex items-center justify-center font-serif text-pirate-parchment">
-        <div className="text-center space-y-3 font-mono">
-          <Compass className="w-10 h-10 animate-spin mx-auto text-pirate-gold" />
-          <h2 className="text-lg font-bold uppercase tracking-wider text-pirate-gold">SETTING SAIL...</h2>
-          <p className="text-xs text-pirate-parchmentDark">IGNEXIA 2026 DIGITAL TREASURE HUNT</p>
-        </div>
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center font-mono text-pirate-gold">
+        <Compass className="w-12 h-12 animate-spin mb-4 text-pirate-gold" style={{ animationDuration: '4s' }} />
+        <span className="text-sm uppercase tracking-widest animate-pulse">LOADING PIRATE VOYAGE TREASURE MAP...</span>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-pirate-dark text-pirate-parchment font-serif flex flex-col selection:bg-pirate-gold selection:text-pirate-dark">
-      
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-pirate-gold text-pirate-dark px-6 py-3 rounded-2xl font-mono font-extrabold text-sm shadow-[0_0_30px_rgba(212,175,55,0.8)] border-2 border-white animate-bounce flex items-center space-x-2">
-          <Trophy className="w-5 h-5" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
+  // View state when no team logged in
+  if (!team) {
+    return (
+      <div className="min-h-screen bg-transparent flex flex-col justify-between selection:bg-pirate-gold selection:text-black font-serif">
+        <Navbar
+          onOpenAdmin={() => setIsAdminDashboardOpen(true)}
+          onGoHome={() => setLandingViewState('landing')}
+        />
+        <main className="container mx-auto px-4 py-6">
+          {landingViewState === 'landing' ? (
+            <LandingPage onGetStarted={() => setLandingViewState('register')} />
+          ) : (
+            <AuthModal />
+          )}
+        </main>
+        
+        <AdminDashboard
+          isOpen={isAdminDashboardOpen}
+          onClose={() => setIsAdminDashboardOpen(false)}
+        />
 
-      {/* Top Navbar Header */}
+        <footer className="text-center py-4 text-xs text-pirate-parchmentDark font-mono border-t border-pirate-coffee bg-pirate-espresso">
+          NIFT-TEA COLLEGE OF KNITWEAR FASHION | IGNEXIA 2026 DIGITAL TREASURE HUNT &copy; Dept. of CS
+        </footer>
+      </div>
+    );
+  }
+
+  // Logged in Team View
+  const currentStage = team.current_stage;
+  const isCompleted = team.is_completed;
+
+  // Custom stage submit handler with 1.8s map redirection
+  const handleStageSubmit = async (key) => {
+    const res = await submitKey(key);
+    if (res.correct) {
+      setStageSuccessNotice(`Correct Decryption Key! Unlocking next island on Pirate Voyage Map...`);
+      setTimeout(() => {
+        setStageSuccessNotice('');
+        setViewMode('map');
+      }, 1800);
+    }
+    return res;
+  };
+
+  const handleSelectStageFromMap = (stageNum) => {
+    setActiveStageNum(stageNum);
+    setViewMode('stage');
+  };
+
+  // Active Stage Component Selector
+  const renderCurrentStageComponent = () => {
+    switch (activeStageNum) {
+      case 1:
+        return <Stage1Audio onCustomSubmit={handleStageSubmit} />;
+      case 2:
+        return <Stage2Osint onCustomSubmit={handleStageSubmit} />;
+      case 3:
+        return <Stage3Metadata onCustomSubmit={handleStageSubmit} />;
+      case 4:
+        return <Stage4Rebus onCustomSubmit={handleStageSubmit} />;
+      case 5:
+        return <Stage5Inspect onCustomSubmit={handleStageSubmit} />;
+      case 6:
+        return <Stage6Social onCustomSubmit={handleStageSubmit} />;
+      case 7:
+        return <Stage7Master onCustomSubmit={handleStageSubmit} />;
+      default:
+        return <Stage1Audio onCustomSubmit={handleStageSubmit} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-transparent flex flex-col justify-between selection:bg-pirate-gold selection:text-black font-serif">
       <Navbar
-        onGoHome={() => setViewMode(token ? 'map' : 'landing')}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={() => setIsAdminDashboardOpen(true)}
+        onGoHome={() => setLandingViewState('landing')}
       />
 
-      {/* Main Content View Switcher */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
-        {!token || viewMode === 'landing' ? (
-          <LandingPage
-            onOpenRegister={() => setIsAuthOpen(true)}
-            onOpenLogin={() => setIsAuthOpen(true)}
-          />
-        ) : isCompleted ? (
-          /* Event Completion Victory Banner Page */
-          <div className="bg-pirate-espresso border-4 border-pirate-gold rounded-3xl p-8 shadow-[0_0_60px_rgba(212,175,55,0.4)] text-center space-y-6 max-w-3xl mx-auto my-8">
-            <div className="w-20 h-20 mx-auto bg-pirate-gold text-pirate-dark rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.6)]">
-              <Trophy className="w-10 h-10 animate-bounce" />
+      <main className="container mx-auto px-4 py-6 max-w-6xl space-y-6">
+        
+        {/* Stage Completion Redirection Banner Notice */}
+        {stageSuccessNotice && (
+          <div className="p-4 bg-emerald-950/90 border-2 border-emerald-500 rounded-2xl text-emerald-300 font-mono text-xs font-bold flex items-center justify-between shadow-2xl animate-bounce">
+            <div className="flex items-center space-x-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+              <span>{stageSuccessNotice}</span>
+            </div>
+            <span className="text-[10px] text-emerald-400">REDIRECTING TO VOYAGE MAP ➔</span>
+          </div>
+        )}
+
+        {/* Global Victory Banner when all 7 stages completed */}
+        {isCompleted ? (
+          <div className="bg-pirate-espresso border-4 border-pirate-gold rounded-3xl p-8 shadow-2xl text-center space-y-4 font-mono">
+            <div className="w-20 h-20 mx-auto bg-pirate-coffee border-2 border-pirate-gold rounded-full flex items-center justify-center text-pirate-gold shadow-[0_0_30px_rgba(212,175,55,0.5)] animate-pulse">
+              <ShieldCheck className="w-10 h-10 text-yellow-300" />
             </div>
 
-            <div>
-              <span className="text-xs font-mono text-pirate-gold uppercase tracking-widest block mb-1">
-                VICTORY UNLOCKED 🪙
-              </span>
-              <h2 className="text-3xl font-black text-pirate-gold uppercase font-mono tracking-wider">
-                ALL 7 ISLANDS CONQUERED!
-              </h2>
-              <p className="text-sm font-sans text-pirate-parchment max-w-md mx-auto mt-2 leading-relaxed font-semibold">
-                All Hail Captain <strong className="text-pirate-gold">{team.team_name}</strong>! You have conquered all 7 Islands of IGNEXIA 2026 and unlocked the Golden Treasure Point!
-              </p>
-            </div>
+            <h2 className="text-3xl font-black text-pirate-gold uppercase tracking-wider">
+              VICTORY & CONGRATULATIONS! 🪙🏴‍☠️
+            </h2>
 
-            {/* Victory Statistics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto my-6 text-xs font-mono">
-              <div className="bg-pirate-coffee border border-pirate-wood p-4 rounded-xl">
-                <ShieldCheck className="w-5 h-5 mx-auto mb-1 text-pirate-gold" />
-                <span className="text-pirate-parchmentDark block">CREW MEMBERS</span>
-                <strong className="text-pirate-parchment text-xs block">{team.member1_name}</strong>
-                <strong className="text-pirate-parchment text-xs block">{team.member2_name}</strong>
-                <span className="text-[10px] text-pirate-parchmentDark block">({team.college})</span>
-              </div>
+            <p className="text-sm text-pirate-parchment max-w-2xl mx-auto leading-relaxed">
+              All Hail Captain <strong className="text-pirate-gold">{team.team_name}</strong>! You have conquered all 7 Islands of IGNEXIA 2026 and unlocked the Golden Treasure Point!
+            </p>
 
-              <div className="bg-pirate-coffee border border-pirate-wood p-4 rounded-xl">
-                <Trophy className="w-5 h-5 mx-auto mb-1 text-pirate-gold" />
-                <span className="text-pirate-parchmentDark block">TOTAL TREASURE POINTS</span>
-                <strong className="text-pirate-gold text-base font-black">{team.total_score || 0} PTS</strong>
-              </div>
+            <div className="pt-4 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setViewMode('map')}
+                className="px-8 py-3 bg-pirate-gold hover:bg-yellow-400 text-pirate-dark font-black rounded-xl text-xs uppercase tracking-wider transition-all shadow-lg"
+              >
+                VIEW VOYAGE MAP & TREASURE ➔
+              </button>
             </div>
           </div>
         ) : viewMode === 'map' ? (
@@ -234,47 +168,64 @@ export default function App() {
               isCompleted={isCompleted}
               onSelectStage={handleSelectStageFromMap}
             />
+
+            {/* Quick Helper Banner */}
+            <div className="bg-pirate-espresso p-4 rounded-2xl border border-pirate-gold/40 flex items-center justify-between text-xs font-mono">
+              <span className="text-pirate-parchment">
+                📍 Currently Unlocked: <strong className="text-yellow-300">Island #{currentStage}</strong>. Click Island #{currentStage} on the map above to solve the trial.
+              </span>
+              <button
+                type="button"
+                onClick={() => handleSelectStageFromMap(currentStage)}
+                className="px-4 py-2 bg-pirate-gold hover:bg-yellow-400 text-pirate-dark font-black rounded-xl transition-all uppercase tracking-wider text-[11px]"
+              >
+                SOLVE ISLAND #{currentStage} ➔
+              </button>
+            </div>
           </div>
         ) : (
           /* STAGE PUZZLE PAGE VIEW */
-          <div className="space-y-6">
-            <div className="flex items-center justify-between font-mono text-xs bg-pirate-espresso p-3 rounded-2xl border border-pirate-wood">
+          <div className="space-y-4 font-mono">
+            {/* Back to Pirate Map Navigation Bar */}
+            <div className="flex items-center justify-between bg-pirate-espresso p-3.5 rounded-2xl border border-pirate-wood">
               <button
                 type="button"
                 onClick={() => setViewMode('map')}
-                className="px-4 py-2 bg-pirate-coffee hover:bg-[#5c381e] text-pirate-gold border border-pirate-gold/40 rounded-xl font-bold transition-all flex items-center space-x-1.5"
+                className="px-4 py-2 bg-pirate-coffee hover:bg-pirate-wood text-pirate-gold border border-pirate-gold/50 rounded-xl font-bold text-xs flex items-center space-x-2 transition-all shadow-md"
               >
-                <Compass className="w-4 h-4 text-amber-400" />
-                <span>RETURN TO VOYAGE MAP</span>
+                <ArrowLeft className="w-4 h-4" />
+                <span>RETURN TO PIRATE VOYAGE MAP</span>
               </button>
 
-              <span className="text-pirate-parchmentDark">
-                STAGE <strong className="text-pirate-gold">{activeStage}</strong> OF 7
+              <span className="text-xs text-amber-300 font-bold">
+                ISLAND #{activeStageNum} TRIAL
               </span>
             </div>
 
-            {renderActivePuzzle()}
+            {/* Active Island Puzzle Component */}
+            {renderCurrentStageComponent()}
           </div>
         )}
+
       </main>
 
-      {/* Footer Banner */}
-      <footer className="border-t border-pirate-wood py-4 px-4 text-center text-[10px] font-mono text-pirate-parchmentDark bg-pirate-espresso">
+      {/* Admin Dashboard Modal */}
+      <AdminDashboard
+        isOpen={isAdminDashboardOpen}
+        onClose={() => setIsAdminDashboardOpen(false)}
+      />
+
+      <footer className="text-center py-4 text-xs text-pirate-parchmentDark font-mono border-t border-pirate-coffee bg-pirate-espresso">
         NIFT-TEA COLLEGE OF KNITWEAR FASHION | IGNEXIA 2026 DIGITAL TREASURE HUNT &copy; Dept. of CS
       </footer>
-
-      {/* Registration & Login Modal */}
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-      />
-
-      {/* Captain Admin Dashboard Modal (PIN Authenticated) */}
-      <AdminDashboard
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
-      />
-
     </div>
+  );
+};
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <MainContent />
+    </AuthProvider>
   );
 }
