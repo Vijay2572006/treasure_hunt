@@ -13,6 +13,27 @@ from .serializers import (
 from .puzzle_data import PUZZLE_STAGES, update_puzzle_stage
 
 
+from django.core import signing
+
+def generate_team_token(team):
+    payload = {
+        'id': str(team.id),
+        'team_name': team.team_name,
+        'college': team.college,
+        'member1_name': team.member1_name,
+        'member1_mobile': team.member1_mobile,
+        'member1_email': team.member1_email,
+        'member2_name': team.member2_name,
+        'member2_mobile': team.member2_mobile,
+        'member2_email': team.member2_email,
+        'current_stage': team.current_stage,
+        'total_score': team.total_score,
+        'penalty_seconds': team.penalty_seconds,
+        'token': str(team.token)
+    }
+    return signing.dumps(payload)
+
+
 def get_team_from_token(request):
     auth_header = request.headers.get('Authorization', '')
     token = None
@@ -26,9 +47,40 @@ def get_team_from_token(request):
     if not token:
         return None
 
+    # 1. Direct DB lookup by raw token or UUID
     try:
         return Team.objects.get(token=token)
-    except Team.DoesNotExist:
+    except Exception:
+        pass
+
+    try:
+        return Team.objects.get(id=token)
+    except Exception:
+        pass
+
+    # 2. Self-Healing: Restore team in SQLite if Vercel serverless lambda container recycled
+    try:
+        data = signing.loads(token, max_age=86400 * 30)
+        raw_token = data.get('token', token)
+        
+        team, created = Team.objects.get_or_create(
+            token=raw_token,
+            defaults={
+                'team_name': data.get('team_name', f'Crew-{str(raw_token)[:6]}'),
+                'college': data.get('college', 'NIFT-TEA CS'),
+                'member1_name': data.get('member1_name', 'Captain'),
+                'member1_mobile': data.get('member1_mobile', '9999999999'),
+                'member1_email': data.get('member1_email', 'captain@nifttea.ac.in'),
+                'member2_name': data.get('member2_name', 'First Mate'),
+                'member2_mobile': data.get('member2_mobile', '8888888888'),
+                'member2_email': data.get('member2_email', 'mate@nifttea.ac.in'),
+                'current_stage': data.get('current_stage', 1),
+                'total_score': data.get('total_score', 0),
+                'penalty_seconds': data.get('penalty_seconds', 0),
+            }
+        )
+        return team
+    except Exception:
         return None
 
 
@@ -56,9 +108,10 @@ def register_team(request):
         team.save()
 
         profile = TeamProfileSerializer(team).data
+        signed_token = generate_team_token(team)
         return Response({
             "message": "Team registered successfully for IGNEXIA TREASURE HUNT!",
-            "token": team.token,
+            "token": signed_token,
             "team": profile
         }, status=status.HTTP_201_CREATED)
 
@@ -78,9 +131,10 @@ def login_team(request):
 
         if team.check_pin(data['pin']):
             profile = TeamProfileSerializer(team).data
+            signed_token = generate_team_token(team)
             return Response({
                 "message": "Session restored successfully!",
-                "token": team.token,
+                "token": signed_token,
                 "team": profile
             }, status=status.HTTP_200_OK)
         else:
@@ -203,12 +257,14 @@ def submit_answer(request):
             team.end_time = now
         team.save()
 
+        signed_token = generate_team_token(team)
         return Response({
             "correct": True,
             "message": f"Stage {current_stage} Decrypted! Access Granted. (+{points_awarded} Points)",
             "points_awarded": points_awarded,
             "next_stage": team.current_stage,
             "is_completed": team.is_completed,
+            "token": signed_token,
             "team": TeamProfileSerializer(team).data
         }, status=status.HTTP_200_OK)
     else:

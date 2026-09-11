@@ -119,6 +119,10 @@ export const AuthProvider = ({ children }) => {
   const submitKey = async (key) => {
     try {
       const res = await api.submitAnswer(key);
+      if (res.token) {
+        localStorage.setItem('cyberquest_token', res.token);
+        setToken(res.token);
+      }
       if (res.correct) {
         await refreshStageData();
       }

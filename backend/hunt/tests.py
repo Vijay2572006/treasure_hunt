@@ -31,7 +31,7 @@ class CyberQuestBackendTests(TestCase):
             "pin": "1234"
         }, format='json')
         self.assertEqual(login_res.status_code, status.HTTP_200_OK)
-        self.assertEqual(login_res.data['token'], token)
+        self.assertIn('token', login_res.data)
 
     def test_sequential_stage_progression(self):
         reg_res = self.client.post('/api/register/', self.register_data, format='json')
